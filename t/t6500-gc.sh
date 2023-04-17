@@ -216,11 +216,10 @@ assert_no_cruft_packs () {
 }
 
 for argv in \
+	"gc" \
 	"gc --cruft" \
 	"-c gc.cruftPacks=true gc" \
-	"-c gc.cruftPacks=false gc --cruft" \
-	"-c feature.experimental=true gc" \
-	"-c gc.cruftPacks=true -c feature.experimental=false gc"
+	"-c gc.cruftPacks=false gc --cruft"
 do
 	test_expect_success "git $argv generates a cruft pack" '
 		test_when_finished "rm -fr repo" &&
@@ -246,9 +245,7 @@ done
 for argv in \
 	"gc --no-cruft" \
 	"-c gc.cruftPacks=false gc" \
-	"-c gc.cruftPacks=true gc --no-cruft" \
-	"-c feature.expiremental=true -c gc.cruftPacks=false gc" \
-	"-c feature.experimental=false gc"
+	"-c gc.cruftPacks=true gc --no-cruft"
 do
 	test_expect_success "git $argv does not generate a cruft pack" '
 		test_when_finished "rm -fr repo" &&
